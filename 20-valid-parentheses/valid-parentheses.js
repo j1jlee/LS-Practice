@@ -25,12 +25,12 @@ var isValid = function(s) {
     } else {
       //must be closer, so pop from openerstack, check
       
-      if (openerStack.length == 0) return false;
+      if (openerStack.length == 0 || parenthesesRef[openerStack[openerStack.length - 1]] != currentValue) return false;
 
       const complementOpener = openerStack.pop();
-      if (parenthesesRef[complementOpener] != currentValue) {
-        return false
-      }
+      // if (parenthesesRef[complementOpener] != currentValue) {
+      //   return false
+      // }
     }
   }
 
