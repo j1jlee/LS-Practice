@@ -3,54 +3,72 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    const parenthesisMap = {
-      '(' : ')',
-      '[' : ']',
-      '{' : '}'
-    }
-    const closers = new Set([')', ']', '}']);
-    //if NOT in array, will only take FIRST value
+    
+  const strArr = s.split('');
 
-    // for (let i = 0; i < s.length; i += 2) {
-    //   const opener = s[i];
-    //   if (s[i + 1] !== parenthesisMap[opener]) return false;
-    // }
+  const parenthesesRef = { '(':')',
+                            '[':']',
+                            '{':'}'};
+  
+  if ([')', ']', '}'].includes(strArr[0])) {
+    return false;
+  }
 
-    // return true;
+  // const openers = new Set(['(','[','{'])
+  // const closers = new Set([')',']','}'])
 
-    //....make a stack somehow
-    //last in, first out
-    //go through each value in array
-    //
+  let openerStack = [];
 
-    const stack = [];
+  for (let index in strArr) {
+    const currentValue = strArr[index];
 
-    for (let i = 0; i < s.length; i++) {
+    // console.log("currentIndex? ", index)
+    // console.log("currentValue? ", currentValue)
 
-      const currentValue = s[i];
-      
-      // console.log("")
-      // console.log("next round", s, ": currentValue: ", currentValue)
-      // console.log("i:", i)
-      // console.log("stack", stack)
+    // console.log("in parenthesesRef? ", parenthesesRef[currentValue])
 
-      if (!closers.has(currentValue)) {
-        // console.log("opener; pushing currentValue to stack")
-        stack.push(currentValue)
-      } else {
-        const opener = stack.pop();
+    if (parenthesesRef[currentValue]) { 
+      //if opener, add to opener stack
+      console.log("here")
 
-        // console.log("closer found, popping opener", opener, "from stack")
-        // console.log("stack now", stack)
+      openerStack.push(currentValue);
+    } else {
+      //must be closer, so pop from openerstack, check
+      console.log('else');
 
-        if (parenthesisMap[opener] !== currentValue) return false;
-
-        // console.log("opener", opener, "closer", currentValue, "should be good")
+      const complementOpener = openerStack.pop();
+      if (parenthesesRef[complementOpener] != currentValue) {
+        
+        // console.log("complement doesn't exist")
+        
+        // console.log("parenthesesRef[complementOpener] ", parenthesesRef[complementOpener])
+        // console.log("currentValue at false ", currentValue)
+        return false
       }
     }
+  }
 
-    // console.log("stack?", stack);
-    if (stack.length > 0) return false;
-    return true;
-    
-};
+  if (openerStack.length > 0) return false;
+
+  return true;
+}
+
+
+//create a stack
+//go down list of strArr
+  //if in openers, add to stack, move next
+  //if in closers, pop from openerStack
+  //if openerStack pop does not match closer, return false
+  //go through, if opener stack is empty, return true (else false)
+
+
+    // for (let index = 0; index < strArr.length; index += 2) {
+  //   const currentValue = strArr[index];
+  //   const complement = strArr[index + 1];
+
+  //   if (parenthesesRef[currentValue] != complement) {
+  //     return false;
+  //   }
+  // }
+
+  // return true
