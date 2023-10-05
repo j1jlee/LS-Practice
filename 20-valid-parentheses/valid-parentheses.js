@@ -5,7 +5,6 @@
 var isValid = function(s) {
     
   const strArr = s.split('');
-
   const parenthesesRef = { '(':')',
                             '[':']',
                             '{':'}'};
@@ -25,7 +24,8 @@ var isValid = function(s) {
       openerStack.push(currentValue);
     } else {
       //must be closer, so pop from openerstack, check
-      console.log('else');
+      
+      if (openerStack.length == 0) return false;
 
       const complementOpener = openerStack.pop();
       if (parenthesesRef[complementOpener] != currentValue) {
