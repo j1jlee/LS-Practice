@@ -10,27 +10,18 @@ var isValid = function(s) {
                             '[':']',
                             '{':'}'};
   
-  if ([')', ']', '}'].includes(strArr[0])) {
-    return false;
-  }
-
-  // const openers = new Set(['(','[','{'])
-  // const closers = new Set([')',']','}'])
+  // if ([')', ']', '}'].includes(strArr[0])) {
+  //   return false;
+  // }
 
   let openerStack = [];
 
   for (let index in strArr) {
     const currentValue = strArr[index];
 
-    // console.log("currentIndex? ", index)
-    // console.log("currentValue? ", currentValue)
-
-    // console.log("in parenthesesRef? ", parenthesesRef[currentValue])
 
     if (parenthesesRef[currentValue]) { 
       //if opener, add to opener stack
-      console.log("here")
-
       openerStack.push(currentValue);
     } else {
       //must be closer, so pop from openerstack, check
@@ -38,11 +29,6 @@ var isValid = function(s) {
 
       const complementOpener = openerStack.pop();
       if (parenthesesRef[complementOpener] != currentValue) {
-        
-        // console.log("complement doesn't exist")
-        
-        // console.log("parenthesesRef[complementOpener] ", parenthesesRef[complementOpener])
-        // console.log("currentValue at false ", currentValue)
         return false
       }
     }
@@ -61,14 +47,3 @@ var isValid = function(s) {
   //if openerStack pop does not match closer, return false
   //go through, if opener stack is empty, return true (else false)
 
-
-    // for (let index = 0; index < strArr.length; index += 2) {
-  //   const currentValue = strArr[index];
-  //   const complement = strArr[index + 1];
-
-  //   if (parenthesesRef[currentValue] != complement) {
-  //     return false;
-  //   }
-  // }
-
-  // return true
