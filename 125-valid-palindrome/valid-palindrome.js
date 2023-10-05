@@ -4,6 +4,9 @@
  */
 var isPalindrome = function(s) {
   const formattedString = s.replace(/[^a-z0-9]/gi, '').toLowerCase().split('');
+  //^ everything not within brackets
+  // gi, global, so all catches even after first find
+  // case insensitive
 
   //console.log(formattedString)
 
