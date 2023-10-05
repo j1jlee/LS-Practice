@@ -4,32 +4,40 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let map = {};
+    if (nums.length == 2) {
+        return [0, 1];
+    }
 
-    //create map of all values/index for O(1) lookup
-    for (let index in nums) {
-        const currentValue = nums[index];
+    const numsIndexMap = {};
 
-        if (map[currentValue] == undefined) {
-            map[currentValue] = index;
+    for (let num in nums) {
+        const currentIndex = num;
+        const currentValue = nums[currentIndex];
+
+        if (!numsIndexMap[currentValue]) {
+            numsIndexMap[currentValue] = [currentIndex];
+        } else {
+            numsIndexMap[currentValue].push(currentIndex);
+        }
+
+
+        const neededDifference = target - currentValue;
+        if (numsIndexMap[neededDifference]) {
+            if (neededDifference != currentValue) {
+                return [numsIndexMap[currentValue][0], numsIndexMap[neededDifference][0]]
+            } else if (numsIndexMap[currentValue].length > 1) {
+                return [numsIndexMap[currentValue][0], numsIndexMap[currentValue][1]]
+            }
         }
     }
 
-    //iterate through nums, and if complement (target - nums) exists in map, then return indices
+    // const numsSet = new Set(nums);
 
-    for (let index2 in nums) {
-        // console.log("index2?", index2)
+    // for (let value in nums) {
+    //     let targetDifference = target - value;
 
-        const currentValue2 = nums[index2];
-        const complement = target - currentValue2;
-
-        // console.log("map?", map)
-        // console.log("complement?", complement)
-        // console.log("map[complement]?", map[complement])
-
-        if ((index2 !== map[complement]) && map[complement] !== undefined) {
-            return [index2, map[complement]]
-        }
-    }
-
+    //     if (numsSet.has(targetDifference)) {
+    //         return [value, targetDifference]
+    //     }
+    // }
 };
